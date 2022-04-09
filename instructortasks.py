@@ -7,7 +7,7 @@ class TasksTab(QWidget):
 
 
         #Assigning task 
-        message_label=QLabel("Create a task")
+        message_label=QLabel("Create a new task")
         
 
     
