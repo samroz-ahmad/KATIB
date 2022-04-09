@@ -40,11 +40,25 @@ class MyTableWidget(QWidget):
         self.createbt.clicked.connect(self.tasktext)
         self.tasktab.setLayout(self.tasktab.layout)
 
-        #Contents of Review Tab//Will call intructorreview.py
+        #Contents of Review Tab
         self.reviewtab.layout=QVBoxLayout(self)
-        self.displayr = QLabel("This is the review tab")
-        self.reviewtab.layout.addWidget(self.displayr)
+       # self.displayr = QLabel("This is the review tab")
+       # self.reviewtab.layout.addWidget(self.displayr)
         self.reviewtab.setLayout(self.reviewtab.layout)
+        
+        row_layout= QHBoxLayout()
+        namelabel = QLabel("Azaz-ur-Rehman Nasir")
+        assign_btn = QPushButton("Assign Tasks")
+        review_btn = QPushButton("Review Tasks")
+        pending_btn = QPushButton("Pending Tasks")
+        
+        row_layout.addWidget(namelabel)
+        row_layout.addWidget(assign_btn)
+        row_layout.addWidget(review_btn)
+        row_layout.addWidget(pending_btn)
+
+        self.reviewtab.layout.addLayout(row_layout)
+
 
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
