@@ -1,3 +1,4 @@
+from locale import windows_locale
 from libraries import *
 
 class InstructorMain (QMainWindow):
@@ -15,6 +16,7 @@ class InstructorMain (QMainWindow):
         
 class MyTableWidget(QWidget):
     def __init__(self, parent) -> None:
+        self.window_open = 0
         super(QWidget, self).__init__(parent)
         self.layout=QVBoxLayout(self)
 
@@ -31,37 +33,78 @@ class MyTableWidget(QWidget):
         #Content of Tasks tab//Will call instructortasks.py
         self.tasktab.layout=QVBoxLayout(self)
         self.ctlabel = QLabel("Create a task: ")
+        self.namelabel = QLabel("Task Name: ")
+        self.nameline = QLineEdit()
         self.taskentry = QTextEdit()
         self.createbt = QPushButton ("Create")
+
+        self.createbt.setStyleSheet("background-color: black; color: white; text-align: centre")
+
+        self.tasktab.layout.addWidget(self.namelabel)
+        self.tasktab.layout.addWidget(self.nameline)
         self.tasktab.layout.addWidget(self.ctlabel)
         self.tasktab.layout.addWidget(self.taskentry)
         self.tasktab.layout.addWidget(self.createbt)
 
         self.createbt.clicked.connect(self.tasktext)
         self.tasktab.setLayout(self.tasktab.layout)
-
+        
         #Contents of Review Tab
         self.reviewtab.layout=QVBoxLayout(self)
-       # self.displayr = QLabel("This is the review tab")
-       # self.reviewtab.layout.addWidget(self.displayr)
         self.reviewtab.setLayout(self.reviewtab.layout)
-        
-        row_layout= QHBoxLayout()
-        namelabel = QLabel("Azaz-ur-Rehman Nasir")
-        assign_btn = QPushButton("Assign Tasks")
-        review_btn = QPushButton("Review Tasks")
-        pending_btn = QPushButton("Pending Tasks")
-        
-        row_layout.addWidget(namelabel)
-        row_layout.addWidget(assign_btn)
-        row_layout.addWidget(review_btn)
-        row_layout.addWidget(pending_btn)
 
-        self.reviewtab.layout.addLayout(row_layout)
+        names = ['Azaz', 'Samroze', 'Zunair', 'Moiz']
+        evaluate_buttons = []
+        pending_buttons = []
+        assign_buttons = []
 
+        for i in range(len(names)):        
+            row_layout= QHBoxLayout()
+            namelabel = QLabel(names[i])
+            assign_buttons.append(QPushButton("Assign Tasks"))
+            evaluate_buttons.append(QPushButton("Evaluate Tasks"))
+            pending_buttons.append(QPushButton("Pending Tasks"))
+
+            row_layout.addWidget(namelabel)
+            row_layout.addWidget(assign_buttons[i])
+            row_layout.addWidget(evaluate_buttons[i])
+            row_layout.addWidget(pending_buttons[i])
+            self.reviewtab.layout.addLayout(row_layout)
+        
+        assign_buttons[0].clicked.connect(self.assign_task)
 
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
+
+
+
+    def assign_task(self,checked):  
+        if (self.window_open %2 == 0):
+            self.window_open +=1
+            print(self.window_open)
+            print("CLICKED")
+            tasklist = ['Write A', 'Write B', 'Write C', 'Write D', 'Write E']
+            assignDlg = QDialog()
+            assignDlg.layout = QVBoxLayout()
+            assigned_tasks = []
+
+            for i in range(len(tasklist)):
+                assigned_tasks.append(QCheckBox(tasklist[i]))
+                assigned_tasks[i].stateChanged.connect(lambda:self.checked_box(assigned_tasks))
+                assignDlg.layout.addWidget(assigned_tasks[i])
+
+            assignDlg.setLayout(assignDlg.layout)
+            assignDlg.closeEvent = self.CloseEvent
+            assignDlg.show()
+            assignDlg.exec_()
+
+    def checked_box(self,tasks):
+        for i in range(len(tasks)):
+            print(tasks[i])
+            print(tasks[i].isChecked())     
+
+    def CloseEvent(self, event):
+        self.window_open+=1
 
     def tasktext(self):
         createdtask = self.taskentry.toPlainText()

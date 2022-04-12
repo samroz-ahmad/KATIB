@@ -7,4 +7,4 @@ from PyQt5.QtGui import *
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, \
     QPushButton, QVBoxLayout, QFileDialog, QLabel, QTextEdit, QLineEdit,\
-         QHBoxLayout, QTabWidget, QMessageBox
+         QHBoxLayout, QTabWidget, QMessageBox, QCheckBox, QDialog

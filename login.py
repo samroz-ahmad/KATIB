@@ -23,7 +23,7 @@ class LoginWindow (QMainWindow):
         psw_label.setAlignment(Qt.AlignCenter)
         psw_label.setFont(QFont('Arial', 10))
 
-        login_bt.clicked.connect(self.show_new_window)
+        login_bt.clicked.connect(self.show_main_window)
 
         idlayout.addWidget(id_label)
         idlayout.addWidget(id_input)
@@ -39,7 +39,7 @@ class LoginWindow (QMainWindow):
         widget.setLayout(loglayout)
         self.setCentralWidget(widget)
 
-    def show_new_window(self,checked):
+    def show_main_window(self,checked):
         if self.w is None:
             self.w= InstructorMain()
             self.w.show()
@@ -50,6 +50,6 @@ class LoginWindow (QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = LoginWindow()
+    window = FirstWindow()
     window.show()
     sys.exit(app.exec_())
