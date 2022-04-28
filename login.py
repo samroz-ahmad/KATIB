@@ -19,9 +19,9 @@ class LoginWindow (QMainWindow):
         login_bt=QPushButton("login")
 
         id_label.setAlignment(Qt.AlignCenter)
-        id_label.setFont(QFont('Arial', 10))
+        #id_label.setFont(QFont('Arial', 10))
         psw_label.setAlignment(Qt.AlignCenter)
-        psw_label.setFont(QFont('Arial', 10))
+        #psw_label.setFont(QFont('Arial', 10))
 
         login_bt.clicked.connect(self.show_main_window)
 
@@ -50,6 +50,6 @@ class LoginWindow (QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = FirstWindow()
+    window = InstructorMain()
     window.show()
     sys.exit(app.exec_())

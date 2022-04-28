@@ -1,5 +1,5 @@
 from login import *
-from patientprofile import *
+from newtherapistprofile import *
 
 class FirstWindow (QMainWindow):
     def __init__(self) -> None:
@@ -12,11 +12,11 @@ class FirstWindow (QMainWindow):
         buttonlayout=QHBoxLayout()
 
         flabel = QLabel("Welcome to KATIB!")
-        profile_btn = QPushButton("Create Patient Profile")
-        login_btn = QPushButton("Login as Therapist")
+        profile_btn = QPushButton("Create New Profile")
+        login_btn = QPushButton("Login")
 
         flabel.setAlignment(Qt.AlignCenter)
-        flabel.setFont(QFont('Arial', 10))
+        #flabel.setFont(QFont('Arial', 10))
 
         profile_btn.clicked.connect(self.show_profile_window)
         login_btn.clicked.connect(self.show_login_window)
@@ -42,7 +42,7 @@ class FirstWindow (QMainWindow):
 
     def show_profile_window(self,checked):
         if self.w is None:
-            self.w= PatientProfileWindow()
+            self.w= TherapistProfileWindow()
             self.w.show()
         else:
             self.w.close()

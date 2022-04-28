@@ -1,5 +1,6 @@
 from locale import windows_locale
 from libraries import *
+from drawingboard import *
 
 class InstructorMain (QMainWindow):
     def __init__(self, parent=None):
@@ -30,13 +31,14 @@ class MyTableWidget(QWidget):
         self.tabs.addTab(self.tasktab,"Tasks")
         self.tabs.addTab(self.reviewtab,"Review")
 
-        #Content of Tasks tab//Will call instructortasks.py
+        #Content of Tasks tabs
         self.tasktab.layout=QVBoxLayout(self)
         self.ctlabel = QLabel("Create a task: ")
         self.namelabel = QLabel("Task Name: ")
         self.nameline = QLineEdit()
         self.taskentry = QTextEdit()
         self.createbt = QPushButton ("Create")
+        self.drawtaskbt = QPushButton ("Draw your task")
 
         self.createbt.setStyleSheet("background-color: black; color: white; text-align: centre")
 
@@ -44,9 +46,12 @@ class MyTableWidget(QWidget):
         self.tasktab.layout.addWidget(self.nameline)
         self.tasktab.layout.addWidget(self.ctlabel)
         self.tasktab.layout.addWidget(self.taskentry)
+        self.tasktab.layout.addWidget(self.drawtaskbt)
         self.tasktab.layout.addWidget(self.createbt)
 
         self.createbt.clicked.connect(self.tasktext)
+        self.drawtaskbt.clicked.connect(self.drawtask)
+
         self.tasktab.setLayout(self.tasktab.layout)
         
         #Contents of Review Tab
@@ -76,7 +81,15 @@ class MyTableWidget(QWidget):
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
 
+    def drawtask(self, checked):
+        if self.w is None:
+            self.w= DrawingSurface()
+            self.w.show()
 
+        else:
+            self.w.close()
+            self.w = None
+        self.close()
 
     def assign_task(self,checked):  
         if (self.window_open %2 == 0):
